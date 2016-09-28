@@ -4,6 +4,8 @@ A comparator function for comparing two persian strings with correct alphabetic 
 ## Sample usage
 
 ```javascript
-['پاوه', 'تهران', 'بهشهر', 'گرگان', 'کرمانشاه', 'کردکوی', 'یاسوج', 'اهواز'].sort(persian_alphabetic_compare);
+import persianAlphabeticCompare from 'persian-alphabetic-compare';
+
+['پاوه', 'تهران', 'بهشهر', 'گرگان', 'کرمانشاه', 'کردکوی', 'یاسوج', 'اهواز'].sort(persianAlphabeticCompare);
 // => ["اهواز", "بهشهر", "پاوه", "تهران", "کردکوی", "کرمانشاه", "گرگان", "یاسوج"]
 ```
