@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/martianboy/persian-string-compare.git"
+    "url": "git+https://github.com/martianboy/persian-alphabetic-compare.git"
   },
   "keywords": [
     "persian",
@@ -17,7 +17,7 @@
   "author": "Abbas Mashayekh",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/martianboy/persian-string-compare/issues"
+    "url": "https://github.com/martianboy/persian-alphabetic-compare/issues"
   },
-  "homepage": "https://github.com/martianboy/persian-string-compare#readme"
+  "homepage": "https://github.com/martianboy/persian-alphabetic-compare#readme"
 }
