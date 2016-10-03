@@ -1,3 +1,5 @@
+"use strict";
+
 function persianAlphabeticCompare(s1, s2) {
     var persian_alphabet_fix_map = {
         'ؤ': 1608.5,
@@ -26,35 +28,28 @@ function persianAlphabeticCompare(s1, s2) {
     // For simplicity, just ignore the range that includes Arabic diacritics.
     var ignore_range = [1611, 1631];
 
-    function is_eos(s, i) {
-        if (i >= s.length) return true;
+    // Checks if index i is at the end of s, ignoring ignore_range.
+    function findNextIndex(s, i) {
+        if (i >= s.length) return -1;
 
         var c = s.charCodeAt(i);
         if (c < ignore_range[0] || c > ignore_range[1])
-            return false;
+            return i;
 
-        return is_eos(s, i + 1);
+        return findNextIndex(s, i + 1);
     }
 
     function compareAtIndex(i, j) {
-        var eos1 = is_eos(s1, i);
-        var eos2 = is_eos(s2, j);
+        var i = findNextIndex(s1, i);
+        var j = findNextIndex(s2, j);
 
-        if (eos1 && eos2) return 0;
-        if (eos1) return -1;
-        if (eos2) return 1;
-
-        var c1 = s1.charCodeAt(i);
-        if (c1 >= ignore_range[0] && c1 <= ignore_range[1])
-            return compareAtIndex(i + 1, j);
-
-        var c2 = s2.charCodeAt(j);
-        if (c2 >= ignore_range[0] && c2 <= ignore_range[1])
-            return compareAtIndex(i, j + 1);
+        if (i < 0 && j < 0) return 0;
+        if (i < 0) return -1;
+        if (j < 0) return 1;
 
         var cmp_value =
-            (persian_alphabet_fix_map[s1[i]] || c1) -
-            (persian_alphabet_fix_map[s2[j]] || c2);
+            (persian_alphabet_fix_map[s1[i]] || s1.charCodeAt(i)) -
+            (persian_alphabet_fix_map[s2[j]] || s2.charCodeAt(j));
 
         if (cmp_value) return cmp_value;
 
