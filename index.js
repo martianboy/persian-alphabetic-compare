@@ -28,35 +28,30 @@ function persianAlphabeticCompare(s1, s2) {
     // For simplicity, just ignore the range that includes Arabic diacritics.
     var ignore_range = [1611, 1631];
 
-    // Checks if index i is at the end of s, ignoring ignore_range.
-    function findNextIndex(s, i) {
-        if (i >= s.length) return -1;
+    for (var i = 0, j = 0; ; i++, j++) {
+        var c1, c2;
 
-        var c = s.charCodeAt(i);
-        if (c < ignore_range[0] || c > ignore_range[1])
-            return i;
+        for (; i < s1.length; i++) {
+            c1 = s1.charCodeAt(i);
+            if (c1 < ignore_range[0] || c1 > ignore_range[1])
+                break;
+        }
+        for (; j < s2.length; j++) {
+            c2 = s2.charCodeAt(j);
+            if (c2 < ignore_range[0] || c2 > ignore_range[1])
+                break;
+        }
 
-        return findNextIndex(s, i + 1);
-    }
-
-    function compareAtIndex(i, j) {
-        var i = findNextIndex(s1, i);
-        var j = findNextIndex(s2, j);
-
-        if (i < 0 && j < 0) return 0;
-        if (i < 0) return -1;
-        if (j < 0) return 1;
+        if (i === s1.length && j === s2.length) return 0;
+        if (i === s1.length) return -1;
+        if (j === s2.length) return 1;
 
         var cmp_value =
-            (persian_alphabet_fix_map[s1[i]] || s1.charCodeAt(i)) -
-            (persian_alphabet_fix_map[s2[j]] || s2.charCodeAt(j));
-
+            (persian_alphabet_fix_map[s1[i]] || c1) -
+            (persian_alphabet_fix_map[s2[j]] || c2);
+ 
         if (cmp_value) return cmp_value;
-
-        return compareAtIndex(i + 1, j + 1);
     }
-
-    return compareAtIndex(0, 0);
 }
 
 module.exports = persianAlphabeticCompare;
